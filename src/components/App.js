@@ -1,6 +1,12 @@
 import React from 'react';
+import TodoList from './TodoList';
+import './App.scss';
 
 const App = () => {
-  return <div className="todo-app">App</div>;
+  return (
+    <div className="todo-app">
+      <TodoList />
+    </div>
+  );
 };
 export default App;

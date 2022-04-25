@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&family=Patrick+Hand&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Patrick Hand', cursive, 'Noto Sans TC', Arial, sans-serif;
+  letter-spacing: 1.5px;
+}
+
+body {
+  background: linear-gradient(to right, #480ca8 0%, #4361ee 100%);
+}
+
+.todo-app {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin: 50px auto;
+  text-align: center;
+  width: 520px;
+  min-height: 600px;
+  color: #fff;
+  background-color: #0b132b;
+  border-radius: 20px;
+  padding-bottom: 32px;
+}
+
+h1 {
+  margin: 32px 0;
+  font-size: 48px;
+}
+
+.complete {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+.todo-form {
+  margin-bottom: 32px;
+
+  &__input {
+    padding: 14px 32px 14px 16px;
+    width: 70%;
+    color: #fff;
+    font-size: 16px;
+    background: transparent;
+    border: 2px solid #4895ef;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+
+    &::placeholder {
+      color: #e2e2e2;
+    }
+
+    &.edit {
+      border: 2px solid #b5179e;
+    }
+  }
+
+  &__btn {
+    padding: 16px;
+    width: 20%;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    background: linear-gradient(90deg, #4cc9f0 0%, #4895ef 100%);
+    color: #fff;
+    text-transform: capitalize;
+
+    &.edit {
+      background: linear-gradient(to right, #b5179e 0%, #7209b7 100%);
+    }
+  }
+}
+
+.todo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px auto;
+  padding: 16px;
+  width: 90%;
+  font-size: 16px;
+  background: linear-gradient(90deg, #4cc9f0 0%, #4895ef 100%);
+  border-radius: 5px;
+
+  &:nth-child(2n) {
+    background: linear-gradient(90deg, #f72585 0%, #b5179e 100%);
+  }
+
+  &__text {
+    cursor: pointer;
+  }
+}
+
+.icons {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
