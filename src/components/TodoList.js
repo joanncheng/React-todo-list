@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Todo from './todo';
 import TodoForm from './TodoForm';
 
-const TodoList = () => {
-  const [todos, setTodos] = useState([]);
-
+const TodoList = ({ todos, setTodos }) => {
   const addTodo = todo => {
     if (!todo.text) return;
 
@@ -35,16 +34,21 @@ const TodoList = () => {
   };
 
   return (
-    <div>
-      <h1>Todo List</h1>
-      <TodoForm onSubmit={addTodo} />
-      <Todo
-        todos={todos}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-        updateTodo={updateTodo}
-      />
-    </div>
+    <>
+      <div>
+        <h1>Todo List</h1>
+        <TodoForm onSubmit={addTodo} />
+        <Todo
+          todos={todos}
+          completeTodo={completeTodo}
+          removeTodo={removeTodo}
+          updateTodo={updateTodo}
+        />
+      </div>
+      <Link to="/" className="link-btn">
+        Back Home
+      </Link>
+    </>
   );
 };
 

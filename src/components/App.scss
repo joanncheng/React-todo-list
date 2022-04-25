@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Patrick Hand', cursive, 'Noto Sans TC', Arial, sans-serif;
+  font-family: 'Patrick Hand', 'Noto Sans TC', Arial, sans-serif;
   letter-spacing: 1.5px;
 }
 
@@ -13,10 +13,11 @@ body {
 }
 
 .todo-app {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: start;
-  margin: 50px auto;
+  margin: 60px auto;
   text-align: center;
   width: 520px;
   min-height: 600px;
@@ -24,6 +25,26 @@ body {
   background-color: #0b132b;
   border-radius: 20px;
   padding-bottom: 32px;
+}
+
+.link-btn {
+  position: absolute;
+  left: 50%;
+  bottom: -50px;
+  padding: 5px;
+  border-radius: 5px;
+  transform: translateX(-50%);
+  color: #fff;
+  background-color: #f72585;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    color: #f72585;
+    border: 2px solid #f72585;
+    background-color: #fff;
+    box-shadow: 0 1rem 2rem rgba(#000, 0.2);
+  }
 }
 
 h1 {
@@ -102,4 +123,19 @@ h1 {
   align-items: center;
   gap: 16px;
   cursor: pointer;
+}
+
+.home {
+  display: grid;
+  place-items: center;
+  gap: 50px;
+}
+
+.todo-icon {
+  color: #fff;
+  font-size: 200px;
+}
+
+.description {
+  font-size: 24px;
 }
