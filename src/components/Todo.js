@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { TiEdit } from 'react-icons/ti';
+import TodosContext from '../contexts/TodosContext';
 import TodoForm from './TodoForm';
 
-const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
-  const [edit, setEdit] = useState({ id: null, value: '' });
+const Todo = () => {
+  const { todos, setTodos } = useContext(TodosContext);
+  const [edit, setEdit] = useState({ id: null, text: '' });
+
+  const removeTodo = id => {
+    const updatedTodos = todos.filter(todo => todo.id !== id);
+    setTodos(updatedTodos);
+  };
+
+  const completeTodo = id => {
+    const updatedTodos = todos.map(todo => {
+      if (todo.id === id) {
+        todo.isComplete = !todo.isComplete;
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+  };
 
   const renderTodos = todos => {
     return todos.map((todo, index) => (
@@ -26,20 +43,15 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
           />
           <TiEdit
             className="edit-icon"
-            onClick={() => setEdit({ id: todo.id, value: todo.text })}
+            onClick={() => setEdit({ id: todo.id, text: todo.text })}
           />
         </div>
       </div>
     ));
   };
 
-  const submitUpdate = value => {
-    updateTodo(edit.id, value);
-    setEdit({ id: null, value: '' });
-  };
-
   if (edit.id) {
-    return <TodoForm edit={edit} onSubmit={submitUpdate} />;
+    return <TodoForm edit={edit} setEdit={setEdit} />;
   }
   return <>{renderTodos(todos)}</>;
 };
