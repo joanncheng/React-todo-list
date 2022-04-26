@@ -4,7 +4,7 @@ Todo List for React practice
 
 ### Techniques
 
-React Hook, React-router-dom, React Context
+React Hook, React Router, React Context
 
 ### Online Demo
 
