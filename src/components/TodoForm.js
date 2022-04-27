@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import TodosContext from '../contexts/TodosContext';
+import { addDoc, doc, collection, updateDoc } from 'firebase/firestore';
+import AuthContext from '../contexts/AuthContext';
+import { db } from '../firebase';
 
 const TodoForm = props => {
-  const { todos, setTodos } = useContext(TodosContext);
+  const user = useContext(AuthContext);
+  const todoRef = collection(db, `users/${user.uid}/todos/`);
   const [input, setInput] = useState(props.edit ? props.edit.text : '');
   const inputRef = useRef(null);
 
@@ -10,29 +13,20 @@ const TodoForm = props => {
     inputRef.current.focus();
   });
 
-  const addTodo = todo => {
-    if (!todo.text) return;
-    const updatedTodos = [...todos, todo];
-    setTodos(updatedTodos);
-  };
-
-  const updateTodo = (todoId, newTodo) => {
-    if (!newTodo.text) return;
-    const updatedTodos = todos.map(todo =>
-      todo.id === todoId ? newTodo : todo
-    );
-    setTodos(updatedTodos);
-  };
-
   const handleSubmit = e => {
     e.preventDefault();
-    const todo = { id: Date.now(), text: input };
+    if (!input) return;
 
     if (props.edit) {
-      updateTodo(props.edit.id, todo);
+      const docRef = doc(db, `users/${user.uid}/todos/`, props.edit.id);
+      updateDoc(docRef, { text: input });
       props.setEdit({ id: null, text: '' });
     } else {
-      addTodo(todo);
+      addDoc(todoRef, {
+        text: input,
+        isComplete: false,
+        createdAt: Date.now(),
+      });
     }
     setInput('');
   };
@@ -50,7 +44,7 @@ const TodoForm = props => {
             onChange={e => setInput(e.target.value)}
             ref={inputRef}
           />
-          <button className="todo-form__btn edit">Update</button>
+          <button className="btn todo-form__btn edit">Update</button>
         </>
       ) : (
         <>

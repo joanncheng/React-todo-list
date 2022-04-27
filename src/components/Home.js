@@ -5,10 +5,10 @@ import { BsListCheck } from 'react-icons/bs';
 const Home = () => {
   return (
     <div className="home">
-      <h1>Welcome Todo App!</h1>
+      <h1>Welcome to Todo App!</h1>
       <p className="description">To Do gives you focus, from work to play.</p>
       <BsListCheck className="todo-icon" />
-      <Link to="/todolist" className="link-btn">
+      <Link to="/todolist" className="btn link-btn">
         Get Started
       </Link>
     </div>

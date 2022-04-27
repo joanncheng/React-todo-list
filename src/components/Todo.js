@@ -1,40 +1,52 @@
 import React, { useState, useContext } from 'react';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import {
+  updateDoc,
+  collection,
+  query,
+  orderBy,
+  deleteDoc,
+  doc,
+} from 'firebase/firestore';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { TiEdit } from 'react-icons/ti';
-import TodosContext from '../contexts/TodosContext';
+import AuthContext from '../contexts/AuthContext';
 import TodoForm from './TodoForm';
+import { db } from '../firebase';
 
 const Todo = () => {
-  const { todos, setTodos } = useContext(TodosContext);
+  const user = useContext(AuthContext);
+  const todoRef = collection(db, `users/${user.uid}/todos/`);
+  const [todos] = useCollection(query(todoRef, orderBy('createdAt')), {
+    idField: 'id',
+  });
   const [edit, setEdit] = useState({ id: null, text: '' });
 
   const removeTodo = id => {
-    const updatedTodos = todos.filter(todo => todo.id !== id);
-    setTodos(updatedTodos);
+    const docRef = doc(db, `users/${user.uid}/todos/`, id);
+    deleteDoc(docRef);
   };
 
   const completeTodo = id => {
-    const updatedTodos = todos.map(todo => {
-      if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
+    const docRef = doc(db, `users/${user.uid}/todos/`, id);
+    const [todo] = todos.docs.filter(todo => todo.id === id);
+    updateDoc(docRef, { isComplete: !todo.data().isComplete });
   };
 
   const renderTodos = todos => {
-    return todos.map((todo, index) => (
+    if (!todos) return;
+
+    return todos.docs.map(todo => (
       <div
-        className={`todo-row ${todo.isComplete ? 'complete' : ''}`}
-        key={index}
+        className={`todo-row ${todo.data().isComplete ? 'complete' : ''}`}
+        key={todo.id}
       >
         <div
           className="todo-row__text"
           onClick={() => completeTodo(todo.id)}
           key={todo.id}
         >
-          {todo.text}
+          {todo.data().text}
         </div>
         <div className="icons">
           <RiCloseCircleLine
@@ -43,7 +55,7 @@ const Todo = () => {
           />
           <TiEdit
             className="edit-icon"
-            onClick={() => setEdit({ id: todo.id, text: todo.text })}
+            onClick={() => setEdit({ id: todo.id, text: todo.data().text })}
           />
         </div>
       </div>
