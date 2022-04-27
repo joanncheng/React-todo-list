@@ -1,10 +1,10 @@
-# Todo List
+# Todo App
 
-Todo List for React practice
+Todo App for React practice
 
 ### Techniques
 
-React Hook, React Router, React Context
+React Hook, React Router, React Context, Firebase Firestore
 
 ### Online Demo
 
