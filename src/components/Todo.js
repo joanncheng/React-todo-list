@@ -29,7 +29,7 @@ const Todo = () => {
 
   const completeTodo = id => {
     const docRef = doc(db, `users/${user.uid}/todos/`, id);
-    const [todo] = todos.docs.filter(todo => todo.id === id);
+    const todo = todos.docs.find(todo => todo.id === id);
     updateDoc(docRef, { isComplete: !todo.data().isComplete });
   };
 
