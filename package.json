@@ -37,7 +37,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
     "file-loader": "^6.2.0",
-    "firebase-tools": "^10.7.1",
+    "firebase-tools": "^11.24.1",
     "html-webpack-plugin": "^5.5.0",
     "node-sass": "^7.0.1",
     "prettier": "^2.6.2",
